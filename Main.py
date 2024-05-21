@@ -46,6 +46,7 @@ def start_game(): #draw menu
 
 def play_game(): #draw game
     screen.blit(lvl1, (0, 0))
+    player.draw(screen)
     text = font.render('This is where the game will take place', True, 'white')
     screen.blit(text, (100, 100))
 
@@ -88,6 +89,5 @@ while run:
             elif event.key == K_DOWN:
                 player.y += 10
               
-    player.draw(screen)
     pygame.display.update()
 pygame.quit()
