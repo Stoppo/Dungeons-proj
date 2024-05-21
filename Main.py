@@ -1,40 +1,60 @@
 #import pygame 
 import pygame
 
-#initialize pygame wwhich allows pygame to process images sounds etc
 pygame.init()
 
-#create a window for your game/project
-window_width = 1200
-window_height = 775
-#you can make variables for you diensions, #width,    height
-screen = pygame.display.set_mode((window_width, window_height)) #set in tuple
-
-#you need to control gamespeed and time
+window_width = 1500
+window_height = 780
+fps = (60)
 clock = pygame.time.Clock()
+screen = pygame.display.set_mode([window_width, window_height], pygame.RESIZABLE)
+pygame.display.set_caption('Test Game') 
+init_game = False
 
-#create a title for your game
-pygame.display.set_caption('Test Game') #you can change the icon too id imagine using a pic
+font = pygame.font.Font('FiraCodeNerdFont-Bold.ttf', 50)
 
-#create a surface for your game
-surface = pygame.Surface((1200,300)) #acts as dimension for surface also set in tuple
-surface.fill('brown')
-#you have to make the main game loop in order to keep the window running,
-#usually use a while loop, this is also where you draw all elements and update everything
+class Button():
+    def __init__(self, txt, pos):
+        self.text = txt
+        self.pos = pos
+        self.button = pygame.rect.Rect((self.pos[0], self.pos[1]), (220, 100))
+    
+    def draw(self):
+        btn = pygame.draw.rect(screen, 'red',self.button , 0, 5)
+        pygame.draw.rect(screen, 'black', self.button , 5, 5)
+        text = font.render("Play", True, 'black',)
+        screen.blit(text,(self.pos[0]+ 10 , self.pos[1]+10))
 
+    def check_clicked(self):
+        if self.button.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]:
+            return True
+        else:
+            return False
 
-pygame.display.set_caption()
-while True:
-    #need to make an event for player input (usually a for loop)
+    
+def start_game(): #draw game
+    button = Button("text", (200,400))
+    button.draw() 
+
+    return button.check_clicked()
+
+def play_game(): #draw menu
+    pygame.draw.rect(screen, 'black',[0, 0, 1920, 1080])
+    text = font.render('This is where the game will take place', True, 'white')
+    screen.blit(text, (100, 100))
+run = True
+while run:
+    screen.fill('gray34')
+    clock.tick(fps)
+
+    if init_game:
+        play_game()
+    else:
+        init_game = start_game()
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()
-            exit()    #exit will uninitialize all of the code even after while loop
+            run = False    
 
-#display our surface
-    screen.blit(surface,(0, 575))
-
-
-#this line of code will update everything in the while loop back onto the screen
     pygame.display.update()
-    clock.tick(60)
+pygame.quit()
