@@ -45,7 +45,7 @@ def start_game(): #draw menu
     return button.check_clicked()
 
 def play_game(): #draw game
-    screen.blit(lvl1, (0, 0))
+    screen.blit(lvl1, (50, 50))
     player.draw(screen)
     text = font.render('This is where the game will take place', True, 'white')
     screen.blit(text, (100, 100))
