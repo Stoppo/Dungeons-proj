@@ -42,6 +42,7 @@ def play_game(): #draw menu
     pygame.draw.rect(screen, 'black',[0, 0, 1920, 1080])
     text = font.render('This is where the game will take place', True, 'white')
     screen.blit(text, (100, 100))
+    
 run = True
 while run:
     screen.fill('gray34')
